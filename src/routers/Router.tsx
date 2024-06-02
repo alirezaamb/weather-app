@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import AuthPage from '../pages/auth-page/AuthPage';
 import HomePage from '../pages/home-page/HomePage';
 import { Protected } from './protected';
+import LayoutHome from '../layout/home/LayoutHome';
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +14,9 @@ export const router = createBrowserRouter([
     element: <Protected />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
+        path: '/',
+        element: <LayoutHome />,
+        children: [{ index: true, element: <HomePage /> }],
       },
     ],
   },

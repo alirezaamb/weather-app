@@ -9,3 +9,10 @@ export interface UserType {
   password: FormDataEntryValue | null;
   id: number;
 }
+export interface WeatherDataType {
+  city: string;
+  country: string;
+  temperature: number;
+  feelsLike: number;
+  description: string;
+}
