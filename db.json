@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1717321353730,
+      "firstName": "Yen",
+      "lastName": "Booth",
+      "email": "myxoziqyce@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": 1717321421564,
+      "firstName": "Raja",
+      "lastName": "Wright",
+      "email": "sokud@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": 1717322564953,
+      "firstName": "alireza",
+      "lastName": "babaei",
+      "email": "ababaei78@gmail.com",
+      "password": "1234"
+    }
+  ]
+}
