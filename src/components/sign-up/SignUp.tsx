@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { AuthType } from '../../types/type';
 import { Alert, Snackbar } from '@mui/material';
+import { addNewUser } from '../../api/post/post';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -19,9 +20,9 @@ const defaultTheme = createTheme();
 export default function SignUp({ setSearchParams }: AuthType) {
   const [toastState, setToastState] = React.useState({
     isOpen: false,
-    message: 'All fields must be filled',
+    message: 'Requierd fields must be filled',
   });
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (data.get('email') !== '' && data.get('password') !== '') {
@@ -30,17 +31,18 @@ export default function SignUp({ setSearchParams }: AuthType) {
         lastName: data.get('lastName'),
         email: data.get('email'),
         password: data.get('password'),
+        id: Date.now(),
       };
-      console.log(newData);
+      event.currentTarget.reset();
+      await addNewUser(newData);
       setToastState({
         isOpen: true,
         message: 'Signed Up succesfully',
       });
-      event.currentTarget.reset();
     } else {
       setToastState({
         isOpen: true,
-        message: 'All fields must be filled',
+        message: 'Requierd fields must be filled',
       });
     }
   };

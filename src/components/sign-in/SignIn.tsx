@@ -13,24 +13,56 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthType } from '../../types/type';
+import { useNavigate } from 'react-router-dom';
+import { getAllUsers } from '../../api/get/get';
+import { Alert, Snackbar } from '@mui/material';
+import { setLocalStorage } from '../../utils/localStorage';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn({ setSearchParams }: AuthType) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [toastState, setToastState] = React.useState({
+    isOpen: false,
+    message: 'UserName or Password is incorrect',
+  });
+  const navigate = useNavigate();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const userInfo = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    const allUsers = await getAllUsers();
+    const foundedUser = allUsers.find(
+      (user: { email: FormDataEntryValue | null }) => {
+        return user.email === userInfo.email;
+      }
+    );
+    if (!foundedUser || foundedUser.password !== userInfo.password) {
+      setToastState({
+        isOpen: true,
+        message: 'UserName or Password is incorrect',
+      });
+    } else {
+      navigate('/');
+      setLocalStorage(
+        'auth',
+        JSON.stringify({ isLogin: true, name: foundedUser.firstName })
+      );
+    }
   };
 
   const handleSignUpClick = () => {
     setSearchParams({
       action: 'signup',
     });
+  };
+
+  const handleClose = () => {
+    setToastState((prev) => ({ ...prev, isOpen: false }));
   };
 
   return (
@@ -120,6 +152,21 @@ export default function SignIn({ setSearchParams }: AuthType) {
           </Box>
         </Grid>
       </Grid>
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={toastState.isOpen}
+        onClose={handleClose}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {toastState.message}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }
