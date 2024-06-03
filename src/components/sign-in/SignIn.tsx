@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllUsers } from '../../api/get/get';
 import { Alert, Snackbar } from '@mui/material';
 import { setLocalStorage } from '../../utils/localStorage';
-import videoFile from '../../../public/videos/5000083-uhd_3840_2160_30fps.mp4';
+import videoFile from '../../../public/videos/authPagemp4.mp4';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
