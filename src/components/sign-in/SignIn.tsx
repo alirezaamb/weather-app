@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllUsers } from '../../api/get/get';
 import { Alert, Snackbar } from '@mui/material';
 import { setLocalStorage } from '../../utils/localStorage';
+import videoFile from '../../../public/videos/authPagemp4.mp4';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -44,7 +45,7 @@ export default function SignIn({ setSearchParams }: AuthType) {
     if (!foundedUser || foundedUser.password !== userInfo.password) {
       setToastState({
         isOpen: true,
-        message: 'UserName or Password is incorrect',
+        message: 'Username or Password is incorrect',
       });
     } else {
       navigate('/');
@@ -69,23 +70,22 @@ export default function SignIn({ setSearchParams }: AuthType) {
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              'url(https://play-lh.googleusercontent.com/aVME3KHn9RdE_JNTg3QrUgxSPEuC6x5bXxok3PnbYGVSlA_Dp0lTmAES0YF9GEQw1Gw)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light'
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+        <Grid item xs={false} sm={4} md={7}>
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: -1,
+            }}
+          >
+            <source src={videoFile} type="video/mp4" />
+          </video>
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{

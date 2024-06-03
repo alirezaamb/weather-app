@@ -31,15 +31,16 @@ export const SingleWeatherCard = ({
   return (
     <Card
       style={{
-        width: '100%',
+        width: '50%',
         margin: 'auto',
         marginTop: '20px',
+        opacity: '.9',
       }}
     >
       <Box
         display={'flex'}
         justifyContent={'space-between'}
-        style={{ width: '100%' }}
+        style={{ width: '90%' }}
       >
         <CardHeader
           title={
@@ -49,7 +50,9 @@ export const SingleWeatherCard = ({
           }
           subheader={country}
         />
-        <Lottie options={defaultOptions} height={100} width={100} />
+        <Box>
+          <Lottie options={defaultOptions} height={100} width={100} />
+        </Box>
       </Box>
       <CardContent>
         <Typography variant="h6">Temperature: {temperature}°C</Typography>
