@@ -45,7 +45,7 @@ export default function SignIn({ setSearchParams }: AuthType) {
     if (!foundedUser || foundedUser.password !== userInfo.password) {
       setToastState({
         isOpen: true,
-        message: 'UserName or Password is incorrect',
+        message: 'Username or Password is incorrect',
       });
     } else {
       navigate('/');

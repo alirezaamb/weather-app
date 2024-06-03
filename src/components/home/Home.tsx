@@ -11,15 +11,13 @@ const Home = () => {
   const [locationData, setLocationData] = useState<WeatherDataType | null>(
     null
   );
-  const [recentSearchs, setRecentSearchs] = useState<WeatherDataType[] | null>(
-    null
-  );
+  const [recentSearchs, setRecentSearchs] = useState<WeatherDataType[]>([]);
 
   useEffect(() => {
-    const previousData = getLocalStorage('recentSearch');
-
+    const previousData = getLocalStorage('recentSearch') || [];
     setRecentSearchs(previousData);
   }, []);
+
   const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -32,13 +30,11 @@ const Home = () => {
         feelsLike: weatherData.data.days[0].feelslike,
         description: weatherData.data.days[0].description,
       };
-      const isDuplicate = recentSearchs?.some(
-        (item) => item.city === data.city
-      );
+      const isDuplicate = recentSearchs.some((item) => item.city === data.city);
 
       if (!isDuplicate) {
         setLocationData(data);
-        const updatedData = [...(recentSearchs || []), data];
+        const updatedData = [...recentSearchs, data];
         setLocalStorage('recentSearch', JSON.stringify(updatedData));
         setRecentSearchs(updatedData);
       } else {
@@ -46,6 +42,7 @@ const Home = () => {
       }
     }
   };
+
   return (
     <div className="">
       <Box
@@ -80,27 +77,26 @@ const Home = () => {
         </Box>
 
         <Box>
-          <Typography
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '30px',
-              fontWeight: 'bold',
-            }}
-          >
-            Recent
-          </Typography>
+          {
+            <Typography
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '30px',
+                fontWeight: 'bold',
+              }}
+            >
+              Recent
+            </Typography>
+          }
           <Grid container spacing={2} sx={{ pb: 2 }}>
-            {recentSearchs
-              ? recentSearchs?.map((recent, index) => {
-                  return (
-                    <Grid key={index} item xs={12} sm={3}>
-                      <WeatherCard weatherData={recent} />
-                    </Grid>
-                  );
-                })
-              : ''}
+            {recentSearchs.length > 0 &&
+              recentSearchs.map((recent, index) => (
+                <Grid key={index} item xs={12} sm={3}>
+                  <WeatherCard weatherData={recent} />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Box>

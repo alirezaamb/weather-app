@@ -40,6 +40,10 @@ function Header() {
     setLocalStorage('auth', '');
     navigate('signin');
   };
+  const clearLocalStorage = () => {
+    setLocalStorage('recentSearch', '');
+    location.reload();
+  };
 
   return (
     <AppBar position="static" sx={{ opacity: '.8' }}>
@@ -138,6 +142,11 @@ function Header() {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center" onClick={logOutHandler}>
                   Logout
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={clearLocalStorage}>
+                  Clear Recent
                 </Typography>
               </MenuItem>
             </Menu>
