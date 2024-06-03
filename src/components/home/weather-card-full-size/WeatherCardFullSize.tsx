@@ -12,7 +12,7 @@ export const WeatherCard = ({
   const { city, country, temperature, feelsLike, description } = weatherData;
 
   let WeatherIcon;
-  if (description.toLowerCase().includes('sunny')) {
+  if (description.toLowerCase().includes('clear')) {
     WeatherIcon = sunnyAnimation;
   } else if (description.toLowerCase().includes('cloud')) {
     WeatherIcon = cloudyAnimation;
@@ -34,6 +34,7 @@ export const WeatherCard = ({
         maxWidth: 300,
         margin: 'auto',
         marginTop: '20px',
+        opacity: '.9',
       }}
     >
       <Box display={'flex'} justifyContent={'space-between'}>

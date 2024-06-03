@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import { AuthType } from '../../types/type';
 import { Alert, Snackbar } from '@mui/material';
 import { addNewUser } from '../../api/post/post';
+import videoFile from '../../../public/videos/5000083-uhd_3840_2160_30fps.mp4';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -145,23 +146,22 @@ export default function SignUp({ setSearchParams }: AuthType) {
             </Box>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={false}
-          sm={3}
-          md={5}
-          sx={{
-            backgroundImage:
-              'url(https://play-lh.googleusercontent.com/aVME3KHn9RdE_JNTg3QrUgxSPEuC6x5bXxok3PnbYGVSlA_Dp0lTmAES0YF9GEQw1Gw)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light'
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+        <Grid item xs={false} sm={3} md={5}>
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: -1,
+            }}
+          >
+            <source src={videoFile} type="video/mp4" />
+          </video>
+        </Grid>
         <Snackbar
           autoHideDuration={2000}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}

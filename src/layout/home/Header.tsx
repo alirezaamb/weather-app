@@ -42,7 +42,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ opacity: '.8' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
