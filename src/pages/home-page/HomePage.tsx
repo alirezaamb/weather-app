@@ -1,5 +1,5 @@
 import Home from '../../components/home/Home';
-import videoFile from '../../../public/videos/4567743-sd_960_540_30fps.mp4';
+import videoFile from '/videos/4567743-sd_960_540_30fps.mp4';
 
 const HomePage = () => {
   return (

@@ -140,13 +140,13 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={logOutHandler}>
-                  Logout
+                <Typography textAlign="center" onClick={clearLocalStorage}>
+                  Clear Recent
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={clearLocalStorage}>
-                  Clear Recent
+                <Typography textAlign="center" onClick={logOutHandler}>
+                  Logout
                 </Typography>
               </MenuItem>
             </Menu>

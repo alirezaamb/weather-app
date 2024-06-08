@@ -19,6 +19,7 @@ export const WeatherCard = ({
   } else {
     WeatherIcon = sunnyAnimation;
   }
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -30,23 +31,35 @@ export const WeatherCard = ({
 
   return (
     <Card
-      style={{
-        maxWidth: 300,
-        margin: 'auto',
+      sx={{
+        maxWidth: { xs: '100%', sm: 300 },
+        margin: { xs: '10px', sm: 'auto' },
         marginTop: '20px',
-        opacity: '.9',
+        opacity: 0.9,
       }}
     >
-      <Box display={'flex'} justifyContent={'space-between'}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ p: 1 }}
+      >
         <CardHeader
           title={
-            <Box display="flex" alignItems="center">
+            <Typography variant="h6" component="div">
               {city}
-            </Box>
+            </Typography>
           }
-          subheader={country}
+          subheader={
+            <Typography variant="body2" color="textSecondary">
+              {country}
+            </Typography>
+          }
+          sx={{ p: 0 }}
         />
-        <Lottie options={defaultOptions} height={100} width={100} />
+        <Box sx={{ height: { xs: 80, sm: 100 }, width: { xs: 80, sm: 100 } }}>
+          <Lottie options={defaultOptions} height="100%" width="100%" />
+        </Box>
       </Box>
       <CardContent>
         <Typography variant="h6">Temperature: {temperature}°C</Typography>

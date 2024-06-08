@@ -17,9 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAllUsers } from '../../api/get/get';
 import { Alert, Snackbar } from '@mui/material';
 import { setLocalStorage } from '../../utils/localStorage';
-import videoFile from '../../../public/videos/authPagemp4.mp4';
+import videoFile from '/videos/authPagemp4.mp4';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn({ setSearchParams }: AuthType) {
@@ -27,9 +26,11 @@ export default function SignIn({ setSearchParams }: AuthType) {
     isOpen: false,
     message: 'UserName or Password is incorrect',
   });
+  const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const data = new FormData(event.currentTarget);
     const userInfo = {
       email: data.get('email'),
@@ -43,6 +44,7 @@ export default function SignIn({ setSearchParams }: AuthType) {
       }
     );
     if (!foundedUser || foundedUser.password !== userInfo.password) {
+      setIsLoading(false);
       setToastState({
         isOpen: true,
         message: 'Username or Password is incorrect',
@@ -137,8 +139,9 @@ export default function SignIn({ setSearchParams }: AuthType) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={isLoading}
               >
-                Sign In
+                {isLoading ? 'signing in...' : ' Sign In'}
               </Button>
 
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>

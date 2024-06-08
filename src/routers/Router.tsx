@@ -1,13 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom';
-import AuthPage from '../pages/auth-page/AuthPage';
-import HomePage from '../pages/home-page/HomePage';
 import { Protected } from './protected';
 import LayoutHome from '../layout/home/LayoutHome';
+import { Suspense, lazy } from 'react';
+import LoadingPage from '../components/home/shared/loading/Loading';
+const AuthPage = lazy(() => import('../pages/auth-page/AuthPage'));
+const HomePage = lazy(() => import('../pages/home-page/HomePage'));
 
 export const router = createBrowserRouter([
   {
     path: 'signin',
-    element: <AuthPage />,
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <AuthPage />
+      </Suspense>
+    ),
   },
   {
     path: '/',
@@ -16,7 +22,16 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <LayoutHome />,
-        children: [{ index: true, element: <HomePage /> }],
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingPage />}>
+                <HomePage />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },

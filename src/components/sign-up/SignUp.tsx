@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import { AuthType } from '../../types/type';
 import { Alert, Snackbar } from '@mui/material';
 import { addNewUser } from '../../api/post/post';
-import videoFile from '../../../public/videos/authPagemp4.mp4';
+import videoFile from '/videos/authPagemp4.mp4';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
